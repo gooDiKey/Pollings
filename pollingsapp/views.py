@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group, User
 from .forms import SignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
+import datetime
 
 
 # Create your views here.
@@ -14,10 +15,10 @@ def home(request):
 
 def index(request):
     pollings = Polling.objects
-    return render(request, 'pollingsapp/index.html', {'pollings': pollings})
+    today = datetime.datetime.now()
+    return render(request, 'pollingsapp/index.html', {'pollings': pollings, 'today': today})
 
 def poll(request, polling_id):
-    print(request.POST)
     polling = get_object_or_404(Polling, pk=polling_id)
     return render(request, 'pollingsapp/poll.html', {'polling': polling})
 
@@ -48,11 +49,6 @@ def vote(request, polling_id):
             return render(request, 'pollingsapp/poll.html', {'polling': polling, 'error_message': "Вы не ответили на один или несколько вопросов"})
         else:
             answers[question.id] = selected_option
-    # line = []
-    # for question in answers:
-    #     line.append(question)
-    #     line.append(answers[question])
-    # return render(request, 'pollingsapp/vote.html', {'answers': answers, 'line': line})
     for question in answers:
         answer = Answer()
         answer.question_id = question

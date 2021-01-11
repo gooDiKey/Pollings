@@ -5,7 +5,9 @@
     <h1>Список опросов:</h1>
     <ul class="polling-list">
     {% for polling in pollings.all %}
+        {% if today.date > polling.start_date and today.date < polling.end_date %}
         <li class="polling-list__item"><a href="{% url 'pollingsapp:poll' polling.id %}">{{polling.poll_title}}</a></li>
+        {% endif %}
     {% endfor %}
     </ul>
 {% endblock %}
