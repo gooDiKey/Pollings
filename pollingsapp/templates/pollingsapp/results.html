@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Результаты{% endblock %}
+
+{% block content %}
+
+<h1>{{ polling.poll_title}}</h1>
+
+<ul>
+{% for question in polling.question_set.all %}
+
+<p>{{question.question_text}}  -  
+{% for answer in question.answer_set.all %}
+    {% if answer.user == request.user %}
+        {{answer.answer_text}}
+    {% endif %}
+{% endfor %}
+</p>
+
+{% endfor %}
+</ul> 
+{% comment %} <br>
+{{results}}
+<br>
+{% for key, value in results %}
+<p>{{key}} - {{value.answer_text}}</p>
+{% endfor %} {% endcomment %}
+
+{% endblock %}

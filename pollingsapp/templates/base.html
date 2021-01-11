@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<style>
+*{
+    margin: 0;
+    padding: 0;
+}
+a{
+    color: whitesmoke;
+    text-decoration: none;
+}
+a:hover{
+    color: grey;
+}
+ body{background-color: #292929}
+ .wrapper{
+     padding-top: 40px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     color: whitesmoke;
+     margin: 0 auto;
+     width: 900px;
+     height: calc(100vh - 120px);
+     background-color: #212121;
+ } 
+ .nav{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width: 100vw;
+     height: 80px;
+     background-color: rgba(255, 127, 80, 0.8);
+ }
+ .nav-item{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin: 10px;
+     height: 100%;
+     min-width: 120px;
+ }
+ .nav a{
+     font-size: 25px;
+ }
+ .nav-item:hover{
+     background-color: rgba(256, 256, 265, 0.4);
+     
+ }
+ .polling-list{
+
+ }
+ .polling-list__item{
+     display: flex;
+     align-items: center;
+     {% comment %} height: 40px; {% endcomment %}
+     font-size: 20px;
+     border-radius: 5px;
+     background-color: rgba(256, 256, 265, 0.1);
+     margin-top: 5px;
+     padding: 10px;
+ }
+ .poll{
+     width: 600px;
+ }
+ .poll-title{
+     text-transform: uppercase;
+ }
+ .poll-date{
+     font-size: 13px;
+     color: grey;
+     font-weight: 700;
+ }
+ .poll-description{
+     font-size: 19px;
+     font-style: italic;
+ }
+ .question-text{
+     font-size: 20px;
+     margin: 10px 0;
+     text-decoration: underline;
+ }
+ .information{
+     width: 700px;
+ }
+</style>
+<body>
+    <header>
+        <div class="nav">
+            <a href="{% url 'pollingsapp:index' %}" class="nav-item">Опросы</a>
+            {% if request.user.is_authenticated%}
+            <a class="nav-item">Приветствую, {{request.user.username}}!</a>
+            <a href="{% url 'pollingsapp:signout' %}" class="nav-item">Выйти</a>
+            
+            {% else %}
+            <a href="{% url 'pollingsapp:login' %}" class="nav-item">Авторизация</a>
+            <a href="{% url 'pollingsapp:signup' %}" class="nav-item">Регистрация</a>
+            {% endif %}
+        </div>
+    </header>
+    <div class="wrapper">
+
+    {% block content %}
+    {% endblock %}
+
+    </div>
+</body>
+</html>

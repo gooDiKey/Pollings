@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}{{polling.poll_title}}{% endblock %}
+
+{% block content %}
+    <div class='poll'>
+        <h1 class="poll-title">{{polling.poll_title}}</h1>
+        <br>
+        <p class="poll-date">{{polling.start_date}} - {{polling.end_date}}</p>
+        <br>
+        <p class="poll-description">{{polling.poll_description}}</p>
+        <br>
+        <hr>
+        <br>
+        <h2>Вопросы:</h2>
+        <br>
+        <hr>
+        <br>
+        {% if error_message %}
+        <p>{{error_message}}</p>
+        <br>
+        {% endif %}
+        <div class="questions">
+            <form action="{% url 'pollingsapp:vote' polling.id%}" method="post">
+                {% for quest in polling.question_set.all  %}
+                    {% csrf_token %}
+                        <div class="question-text" id ="{{quest.id}}">{{quest.question_text}}</div>
+                    {% if quest.question_type != "text" %}
+                        {% if quest.question_type == "one_opt" %}
+                            {% for option in quest.option_set.all %}
+                                    <input type="radio" name="{{ quest.id }}" id="option{{ forloop.counter }}" value="{{ option.id }}">
+                                    <label for="option{{ forloop.counter }}">{{ option.option_text}}</label>
+                            {% endfor %}
+                        {% endif %}
+                        {% if quest.question_type == "many_opt" %}
+                            {% for option in  quest.option_set.all %}
+                                    <input type="checkbox" name="{{ quest.id }}" id="option{{ forloop.counter }}" value="{{ option.id }}">
+                                    <label for="option{{ forloop.counter }}">{{ option.option_text}}</label>
+                            {% endfor %}
+                        {% endif %}
+                    {% else %}
+                        <textarea name="{{ quest.id }}" id="option{{ option.id }}" cols="50" rows="5"></textarea>
+                    {% endif %}
+                {% endfor %}
+            <br>
+            <input type="submit" value="Ответить">
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+    

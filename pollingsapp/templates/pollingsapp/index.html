@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Все опросы{% endblock %}
+
+{% block content %}
+    <h1>Список опросов:</h1>
+    <ul class="polling-list">
+    {% for polling in pollings.all %}
+        <li class="polling-list__item"><a href="{% url 'pollingsapp:poll' polling.id %}">{{polling.poll_title}}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

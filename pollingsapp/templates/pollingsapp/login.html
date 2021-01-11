@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+
+    <div>
+        <br>
+        <h1>Авторизируйтесь или Зарегистрируйтесь</h1>
+        <div>
+            <br>
+            <h2>Регистрация</h2>
+            <a href="{% url 'pollingsapp:signup' %}">Создать нового пользователя</a>
+        </div>
+        <div>
+            <br>
+            <h2>Авторизация</h2>
+            <form method="post">
+                {% csrf_token %}
+                <p>{{ form }}</p>
+                <button type="submit">Авторизоваться</button>
+            </form>
+        </div>
+    </div>
+       
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+
+{% block content %}
+
+{{answers}}
+<br>
+{{line}}
+{% comment %} {% for answer in answers %}
+
+    <p>{{answer}}</p> <br>
+
+{% endfor %} {% endcomment %}
+{% comment %} <br>
+<br>
+<p>{{req}}</p>
+<p>{{re}}</p> {% endcomment %}
+       
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+
+    <div>
+        {% if  not form.is_valid %}
+            <div>
+                <br>
+                <h1>Зарегистрироваться</h1>
+                <br>
+                <div>
+                    <br>
+                    <p>Пожалуйста введите данные для регистрации</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <p>{{form}}</p>
+                        <button type="submit" name="button">Зарегистрироваться</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+        <div>
+            <br>
+            <h1>Вы успешно зарегистрировались</h1>
+        </div>
+        {% endif %}
+    </div>
+       
+{% endblock %}
